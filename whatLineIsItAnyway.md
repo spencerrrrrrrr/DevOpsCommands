@@ -9,22 +9,24 @@ ALL disables password required when sudoing
 
 ###**Kubernetes**
 ######**Basic yaml orchestration format**
->apiVersion: v1
+>apiVersion: (v1 for Pod, apps/v1 for others listed below)
 kind: (Pod, ReplicationController, ReplicaSet, Deployment)
 metadata:
   name: name-here
-  labels: (optional labels)
+  labels:
+    labelKey: labelValue
+    labelKey2: anotherLabelValue
 spec:
   Specify container details, what you want the container to be named, and
   which image you want the container to use
 
->If using ReplicaSet or ReplicationController, template: must be within spec:
-i.e.  
+>If using ReplicaSet, ReplicationController, or Deployment, 'template:'' must be
+within 'spec:', as shown below  
 spec:
   template:
     pod-specs: (metadata:, spec:)
 
->At the end of a Deployment ReplicationController yaml file, you can control
+>At the end of a Deployment or ReplicationController yaml file, you can control
 the number of replicas by adding "replicas:" in line with template:
 If using ReplicaSet or Deployment, you can match pod control up with other pods
 that have matching labels by adding the following to the end of the file:
@@ -42,10 +44,14 @@ spec:
   ports:
     - targetPort: 80 (or any other port num. If not included, num will match port below)
       port: 80 (or any other port. Must be included)
+      nodePort: between 30000 - 32767
+  selector:
+    (add labels here that match labels of pods you want to connect to)
 
 
 **kubectl create -f yaml-file.yaml**
->Creates a deployment based on the details outline in the yaml file
+>Creates a deployment based on the details outline in the yaml file. If kind: Service
+is specified in the yaml file, it will launch services to expose pods
 
 **kubectl run pod-name --image image-to-pull-from-dockerhub**
 >Creates a pod out of an image pulled from Docker Hub
