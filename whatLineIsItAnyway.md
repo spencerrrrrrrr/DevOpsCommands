@@ -8,9 +8,9 @@ Follow (ALL:ALL) with password settings - ALL is password enabled, NOPASSWD:
 ALL disables password required when sudoing
 
 ###**Kubernetes**
-######**Basic yaml format**
+######**Basic yaml orchestration format**
 >apiVersion: v1
-kind: (Pod, ReplicationController, ReplicaSet, etc.)
+kind: (Pod, ReplicationController, ReplicaSet, Deployment)
 metadata:
   name: name-here
   labels: (optional labels)
@@ -24,13 +24,24 @@ spec:
   template:
     pod-specs: (metadata:, spec:)
 
->At the end of a ReplicationController yaml file, you can control the number of
-replicas by adding "replicas:" in line with template:
-If using ReplicaSet, you can match pod control up with other pods that have
-matching labels by adding the following to the end of the file:
+>At the end of a Deployment ReplicationController yaml file, you can control
+the number of replicas by adding "replicas:" in line with template:
+If using ReplicaSet or Deployment, you can match pod control up with other pods
+that have matching labels by adding the following to the end of the file:
 selector:
   matchLabels:
     key: value
+
+**Yaml service file format**
+>apiVersion: v1
+kind: Service
+metadata:
+  name: app-name
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80 (or any other port num. If not included, num will match port below)
+      port: 80 (or any other port. Must be included)
 
 
 **kubectl create -f yaml-file.yaml**
@@ -48,12 +59,19 @@ selector:
 >Scales amount of pod reps
 
 **kubectl edit replicaset replica-set-name**
->Allows the user to edit the yaml file that was created by kubernetes in memory
->based on the initial yaml file. This does not change the original yaml file but
->allows changes to be made to the pod environment, such as replica scaling.
+>Allows the user to edit the yaml file that was created by kubernetes in memory based on the initial yaml file. This does not change the original yaml file but allows changes to be made to the pod environment, such as replica scaling.
 
 **kubectl describe replicaset replica-set-name**
 >Displays a detailed description of the replica set status
+
+**kubectl get all**
+>Displays all pods, replica set, deployments, etc. at once.
+
+**kubectl rollout status deployment/name-of-deployment**
+
+**kubectl rollout history deployment/name-of-deployment**
+
+**kubectl rollout undo deployment/name-of-deployment**
 
 ###**Ansible**
 ***Target users must have sudoer privileges in /etc/sudoers/
