@@ -1,14 +1,14 @@
-#Significant Code Lines
+# Significant Code Lines
 
-###**Linux Terminal**
+### **Linux Terminal**
 
 **sudo visudo**
 >Lets user edit /etc/sudoers. Add "<username> ALL=(ALL:ALL)"
 Follow (ALL:ALL) with password settings - ALL is password enabled, NOPASSWD:
 ALL disables password required when sudoing
 
-###**Kubernetes**
-######**Basic yaml orchestration format**
+### **Kubernetes**
+###### **Basic yaml orchestration format**
 >apiVersion: (v1 for Pod, apps/v1 for others listed below)
 kind: (Pod, ReplicationController, ReplicaSet, Deployment)
 metadata:
@@ -73,13 +73,16 @@ is specified in the yaml file, it will launch services to expose pods
 **kubectl get all**
 >Displays all pods, replica set, deployments, etc. at once.
 
+**minikube service service-name --url**
+>Displays the url and port num of the pod exposure in local node
+
 **kubectl rollout status deployment/name-of-deployment**
 
 **kubectl rollout history deployment/name-of-deployment**
 
 **kubectl rollout undo deployment/name-of-deployment**
 
-###**Ansible**
+### **Ansible**
 ***Target users must have sudoer privileges in /etc/sudoers/
 ansible_sudo_pass="yourPassword" >Place in inventory.txt file
 ansible_host=192.168.x.x >Place in inventory.txt file. Assigns IP to target name
@@ -92,10 +95,10 @@ ansible_connection=ssh >Establishes connection type, "ssh" is Linux-based***
 
 
 
-###**Python**
+### **Python**
 
-#####Install Pytest
+##### Install Pytest
 [Reference](https://pytest-flask.readthedocs.io/en/latest/tutorial.html)
 
-#####Using Pytest
+##### Using Pytest
 [Reference](https://iammehdi.medium.com/testing-flask-apps-with-pytest-5b7af093c53d)
