@@ -8,7 +8,11 @@ Follow (ALL:ALL) with password settings - ALL is password enabled, NOPASSWD:
 ALL disables password required when sudoing
 
 ### **Kubernetes**
+<<<<<<< HEAD
 ###### **Basic yaml orchestration format**
+=======
+######**Basic yaml orchestration format**
+>>>>>>> 4af10d680029339be0ac36418c39e24228880d2b
 >apiVersion: (v1 for Pod, apps/v1 for others listed below)
 kind: (Pod, ReplicationController, ReplicaSet, Deployment)
 metadata:
