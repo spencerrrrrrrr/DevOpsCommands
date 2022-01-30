@@ -9,7 +9,7 @@ ALL disables password required when sudoing
 
 ### **Kubernetes**
 
-###### **Basic yaml orchestration format**
+**Basic yaml orchestration format**
 
 
 ```
