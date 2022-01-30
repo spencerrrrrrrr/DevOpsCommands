@@ -91,10 +91,22 @@ is specified in the yaml file, it will launch services to expose pods
 >Displays the url and port num of the pod exposure in local node
 
 `kubectl rollout status deployment/name-of-deployment`
+>Displays a live status update of pod deployments
 
 `kubectl rollout history deployment/name-of-deployment`
+>Displays the deployment update history with reason for update
 
 `kubectl rollout undo deployment/name-of-deployment`
+>Rolls back a deployment to the previous version
+
+`kubectl proxy --address 0.0.0.0 --accept-hosts 192.168.1.XXX`
+>Exposes service connection to ip address specified at --accept-hosts
+
+>Proxy must be accessed via this link format:<br />
+http://192.168.1.xxx:8001/api/v1/namespaces/default/services/service-name:XXXX/proxy/<br />
+Use --accept-hosts ip with port 8001, fill in service-name with the name of your deployment's service, and use the port of the service itself (not targetPort or nodePort, just port)
+
+
 
 ### **Ansible**
 ***Target users must have sudoer privileges in /etc/sudoers/
