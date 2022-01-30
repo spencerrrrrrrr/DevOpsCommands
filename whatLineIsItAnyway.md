@@ -20,17 +20,23 @@ metadata:
   labels:
     labelKey: labelValue
     labelKey2: anotherLabelValue
-spec:
-  Specify container details, what you want the container to be named, and
-  which image you want the container to use
+spec:  
 ```
 
->If using ReplicaSet, ReplicationController, or Deployment, 'template:'' must be
-within 'spec:', as shown below  
+>If using ReplicaSet, ReplicationController, or Deployment, 'template:'' must be within 'spec:', as shown below  
 ```
 spec:
   template:
-    specs: (metadata:, spec:)
+    metadata:
+      name: name-of-pods
+      labels:
+        key: value
+    spec:
+      containers:
+      - name: container-name
+        image: dockerhub-image
+        ports:
+        - containerPort: portNum to expose from node
 ```
 
 >At the end of a Deployment or ReplicationController yaml file, you can control
