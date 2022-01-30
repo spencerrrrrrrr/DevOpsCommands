@@ -8,27 +8,27 @@ Follow (ALL:ALL) with password settings - ALL is password enabled, NOPASSWD:
 ALL disables password required when sudoing
 
 ### **Kubernetes**
-<<<<<<< HEAD
+
 ###### **Basic yaml orchestration format**
-=======
+
 ######**Basic yaml orchestration format**
->>>>>>> 4af10d680029339be0ac36418c39e24228880d2b
+
 >apiVersion: (v1 for Pod, apps/v1 for others listed below)
-kind: (Pod, ReplicationController, ReplicaSet, Deployment)
-metadata:
-  name: name-here
-  labels:
-    labelKey: labelValue
-    labelKey2: anotherLabelValue
-spec:
-  Specify container details, what you want the container to be named, and
-  which image you want the container to use
+>kind: (Pod, ReplicationController, ReplicaSet, Deployment)
+>metadata:
+>  name: name-here
+>  labels:
+>    labelKey: labelValue
+>    labelKey2: anotherLabelValue
+>spec:
+>  Specify container details, what you want the container to be named, and
+>  which image you want the container to use
 
 >If using ReplicaSet, ReplicationController, or Deployment, 'template:'' must be
 within 'spec:', as shown below  
-spec:
-  template:
-    pod-specs: (metadata:, spec:)
+>spec:
+>  template:
+>    pod-specs: (metadata:, spec:)
 
 >At the end of a Deployment or ReplicationController yaml file, you can control
 the number of replicas by adding "replicas:" in line with template:
@@ -40,17 +40,17 @@ selector:
 
 **Yaml service file format**
 >apiVersion: v1
-kind: Service
-metadata:
-  name: app-name
-spec:
-  type: NodePort
-  ports:
-    - targetPort: 80 (or any other port num. If not included, num will match port below)
-      port: 80 (or any other port. Must be included)
-      nodePort: between 30000 - 32767
-  selector:
-    (add labels here that match labels of pods you want to connect to)
+>kind: Service
+>metadata:
+>  name: app-name
+>spec:
+>  type: NodePort
+>  ports:
+>    - targetPort: 80 (or any other port num. If not included, num will match port below)
+>      port: 80 (or any other port. Must be included)
+>      nodePort: between 30000 - 32767
+>  selector:
+>    (add labels here that match labels of pods you want to connect to)
 
 
 **kubectl create -f yaml-file.yaml**
