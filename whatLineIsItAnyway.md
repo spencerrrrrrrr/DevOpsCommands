@@ -2,7 +2,12 @@
 [GitHub Flavored Markdown Cheat Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 >Format contributions to GitHub Flavored Markdown
 
-### **Linux Terminal**
+### **CentOS Terminal**
+
+`rpm -ivh`
+>RPM is the CentOS Package Manager. The -i flag indicates install packages, -v indicates verbose, and -h prints hash marks as package installs.
+
+### **Ubuntu Terminal**
 
 `sudo visudo`
 >Lets user edit /etc/sudoers. Add "<username> ALL=(ALL:ALL)"
@@ -12,6 +17,110 @@ ALL disables password required when sudoing
 `cat /etc/passwd`
 >Gets general info about users
 
+### **Git**
+```
+git config --global user.name perscholas2021
+git config --global user.email perscholas2021@gmail.com
+```
+>Configures your git username and email to identify who is making the commits
+
+`git branch -m master main`
+>Changes name of git branch from master to main. Replace `master` and `main` to rename branches as necessary
+
+### **Ansible**
+***Target users must have sudoer privileges in /etc/sudoers/
+ansible_sudo_pass="yourPassword" >Place in inventory.txt file
+ansible_host=192.168.x.x >Place in inventory.txt file. Assigns IP to target name
+ansible_connection=ssh >Establishes connection type, "ssh" is Linux-based***
+
+```
+vars:
+   variable-name: variable-assignment #Such as an ip address: 192.168.x.x.
+```
+>Format to create a variable. Variables must be called in double curly braces {{ variable-name}}
+
+```
+apt:
+  pkg:
+    python
+    apache
+    etc.
+```
+>Format to install packages in ubuntu via Ansible
+
+### **Chef**
+[Resources](https://docs.chef.io/resources/)
+>Resources used in Chef are listed under the Infra portion of the Workstation
+
+`sudo hostnamectl set-hostname chef-server.example.com`
+>Set server hostname that will be the DNS name of your Chef Server
+
+`sudo nano /ect/hosts`
+`127.0.0.1 chef-server.example.com`
+>Modifies access to your Chef host
+
+```
+sudo apt -y install chrony
+sudo timedatectl set-timezone US/Michigani
+sudo systemctl restart chrony
+```
+>Because Chef is prone to time drift, it's best to connect your system to Network Time Protocol (NTP)
+
+```
+VERSION="14.12.21
+wget https://packages.chef.io/files/stable/chef-server/${VERSION}/ubuntu/18.04/chef-server-core_${VERSION}-1_amd64.deb
+sudo apt install ./chef-server-core_${VERSION}-1_amd64.deb
+```
+>Installation process as of February 1st, 2022
+
+`sudo chef-server-ctl user-create USER_NAME FIRST_NAME LAST_NAME EMAIL 'PASSWORD' --filename FILE_NAME`
+>Creates an admin account and auto generates an rsa key. FILE_NAME is where the key will be stored
+
+`sudo chef-server-ctl org-create short_name 'full_organization_name' --association_user user_name --filename ORGANIZATION-validator.pem`
+>Creates an organization account. Name must begin with a lowercase letter or digit, no whitespace. user_name associates the specified user with the admins security group on the Chef server. --filename specifies where to save the rsa private key.
+
+```
+sudo chef-server-ctl install chef-manage
+sudo chef-server-ctl reconfigure
+```
+**or**
+```
+VER="3.2.20"
+wget https://packages.chef.io/files/stable/chef-manage/${VER}/ubuntu/18.04/chef-manage_${VER}-1_amd64.deb
+sudo apt install -f ./chef-manage_${VER}-1_amd64.deb
+sudo chef-manage-ctl reconfigure
+```
+>Installs the Chef management console, **WHICH IS ONLY FREE FOR UP TO 25 NODES**
+
+`sudo ufw allow proto tcp from any to any port 80,443`
+>Opens ports 80 and 443 because those are the ports Chef is using
+
+```
+VER=4.13.3
+wget https://packages.chef.io/files/stable/chefdk/${VER}/ubuntu/20.04/chefdk_${VER}-1_amd64.deb
+```
+>Installs ChefDK for Ubuntu 20.04 2/1/22
+
+```
+VER="22.1.745"
+wget https://packages.chef.io/files/stable/chef-workstation/${VER}/ubuntu/20.04/chef-workstation_${VER}-1_amd64.deb
+```
+>Installs Chef Workstation for Ubuntu 20.04 2/1/22
+
+```
+chef generate repo chef-repo
+cd chef-repo
+```
+>Generates a Chef repo on your Workstation machine
+
+`cookstyle recipe-file.rb`
+>Checks for proper syntax
+
+`chef-client --local-mode --why-run recipe-file.rb`
+>Performs a smoke test to check that we're getting the expected output. Only use --local mode when using Chef Zero. Otherwise run line without --local-mode. To apply changes, remove --why-run, because --why-run is used to check the output without applying it.
+
+
+
 ### **Docker**
 `sudo apt install docker.io`
 >Installs Docker for CLI on Linux ubuntu
@@ -20,6 +129,7 @@ ALL disables password required when sudoing
 >Adds the current user to the Docker group. Follow up with the command below to avoid a common daemonize error
 
 `newgrp docker`
+>Logs in to docker group. If a daemon issue persists beyond the previous two steps, you may need to reboot your system.
 
 
 ### **Kubernetes**
@@ -121,29 +231,10 @@ is specified in the yaml file, it will launch services to expose pods
 http://192.168.1.xxx:8001/api/v1/namespaces/default/services/service-name:XXXX/proxy/<br />
 Use --accept-hosts ip with port 8001, fill in service-name with the name of your deployment's service, and use the port of the service itself (not targetPort or nodePort, just port)
 
+### **Ruby**
 
-
-### **Ansible**
-***Target users must have sudoer privileges in /etc/sudoers/
-ansible_sudo_pass="yourPassword" >Place in inventory.txt file
-ansible_host=192.168.x.x >Place in inventory.txt file. Assigns IP to target name
-ansible_connection=ssh >Establishes connection type, "ssh" is Linux-based***
-
-```
-vars:
-   variable-name: variable-assignment #Such as an ip address: 192.168.x.x.
-```
->Format to create a variable. Variables must be called in double curly braces {{ variable-name}}
-
-```
-apt:
-  pkg:
-    python
-    apache
-    etc.
-```
->Format to install packages in ubuntu via Ansible
-
+`puts` vs `print`
+>Puts will automatically input a new line at the end of the string. Print requires a "\n" line break for any new lines.
 
 
 ### **Python**
