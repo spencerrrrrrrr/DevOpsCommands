@@ -1,4 +1,6 @@
 # Significant Code Lines
+[GitHub Flavored Markdown Cheat Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+>Format contributions to GitHub Flavored Markdown
 
 ### **Linux Terminal**
 
@@ -6,6 +8,19 @@
 >Lets user edit /etc/sudoers. Add "<username> ALL=(ALL:ALL)"
 Follow (ALL:ALL) with password settings - ALL is password enabled, NOPASSWD:
 ALL disables password required when sudoing
+
+`cat /etc/passwd`
+>Gets general info about users
+
+### **Docker**
+`sudo apt install docker.io`
+>Installs Docker for CLI on Linux ubuntu
+
+`sudo usermod -aG docker $USER`
+>Adds the current user to the Docker group. Follow up with the command below to avoid a common daemonize error
+
+`newgrp docker`
+
 
 ### **Kubernetes**
 
@@ -113,6 +128,13 @@ Use --accept-hosts ip with port 8001, fill in service-name with the name of your
 ansible_sudo_pass="yourPassword" >Place in inventory.txt file
 ansible_host=192.168.x.x >Place in inventory.txt file. Assigns IP to target name
 ansible_connection=ssh >Establishes connection type, "ssh" is Linux-based***
+
+```
+vars:
+   variable-name: variable-assignment #Such as an ip address: 192.168.x.x.
+```
+>Format to create a variable. Variables must be called in double curly braces {{ variable-name}}
+
 ```
 apt:
   pkg:
