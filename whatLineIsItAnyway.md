@@ -44,7 +44,7 @@ sudo systemctl restart chrony
 >Because Chef is prone to time drift, it's best to connect your system to Network Time Protocol (NTP)
 
 ```
-VERSION="14.12.21
+VERSION="14.12.21"
 wget https://packages.chef.io/files/stable/chef-server/${VERSION}/ubuntu/18.04/chef-server-core_${VERSION}-1_amd64.deb
 sudo apt install ./chef-server-core_${VERSION}-1_amd64.deb
 ```
