@@ -1,5 +1,5 @@
 # Significant Code Lines
-[GitHub Flavored Markdown Cheat Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+[GitHub Flavored Markdown Cheat Sheet](https://gist.github.com/stevenyap/7038119)
 >Format contributions to GitHub Flavored Markdown
 
 ## **Ansible**
@@ -88,6 +88,8 @@ chef generate repo chef-repo
 cd chef-repo
 ```
 >Generates a Chef repo on your Workstation machine
+
+
 
 `cookstyle recipe-file.rb`
 >Checks for proper syntax
