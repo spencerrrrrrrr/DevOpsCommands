@@ -38,7 +38,7 @@ apt:
 
 ```
 sudo apt -y install chrony
-sudo timedatectl set-timezone US/Michigani
+sudo timedatectl set-timezone America/New_York
 sudo systemctl restart chrony
 ```
 >Because Chef is prone to time drift, it's best to connect your system to Network Time Protocol (NTP)
@@ -79,6 +79,8 @@ sudo chef-manage-ctl reconfigure
 ```
 VER="22.1.745"
 wget https://packages.chef.io/files/stable/chef-workstation/${VER}/ubuntu/20.04/chef-workstation_${VER}-1_amd64.deb
+sudo dpkg -i chef-workstation_*.deb
+rm chef-workstation_*.deb
 ```
 >Installs Chef Workstation for Ubuntu 20.04 2/1/22
 [Chef Workstation Downloads](https://www.chef.io/downloads/tools/workstation)
@@ -89,7 +91,14 @@ cd chef-repo
 ```
 >Generates a Chef repo on your Workstation machine
 
+```
+cd chef-repo
+mkdir .chef
+cd .chef
+```
+>Creates a directory, .chef, inside your chef-repo that is meant to contain your knife.rb file and your rsa key
 
+*Be sure to create a .gitignore file and add .chef to it.*
 
 `cookstyle recipe-file.rb`
 >Checks for proper syntax
