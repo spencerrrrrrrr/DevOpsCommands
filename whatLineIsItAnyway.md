@@ -2,12 +2,12 @@
 [GitHub Flavored Markdown Cheat Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 >Format contributions to GitHub Flavored Markdown
 
-### **CentOS Terminal**
+## **CentOS Terminal**
 
 `rpm -ivh`
 >RPM is the CentOS Package Manager. The -i flag indicates install packages, -v indicates verbose, and -h prints hash marks as package installs.
 
-### **Ubuntu Terminal**
+## **Ubuntu Terminal**
 
 `sudo visudo`
 >Add sudoers/change sudo privileges. Lets user edit /etc/sudoers. Add "<username> ALL=(ALL:ALL)"
@@ -17,7 +17,7 @@ ALL disables password required when sudoing
 `cat /etc/passwd`
 >Gets general info about users
 
-### **Git**
+## **Git**
 ```
 git config --global user.name perscholas2021
 git config --global user.email perscholas2021@gmail.com
@@ -27,7 +27,7 @@ git config --global user.email perscholas2021@gmail.com
 `git branch -m master main`
 >Changes name of git branch from master to main. Replace `master` and `main` to rename branches as necessary
 
-### **Ansible**
+## **Ansible**
 ***Target users must have sudoer privileges in /etc/sudoers/
 ansible_sudo_pass="yourPassword" >Place in inventory.txt file
 ansible_host=192.168.x.x >Place in inventory.txt file. Assigns IP to target name
@@ -48,7 +48,7 @@ apt:
 ```
 >Format to install packages in ubuntu via Ansible
 
-### **Chef**
+## **Chef**
 [Resources](https://docs.chef.io/resources/)
 >Resources used in Chef are listed under the Infra portion of the Workstation
 
@@ -122,7 +122,7 @@ cd chef-repo
 
 
 
-### **Docker**
+## **Docker**
 `sudo apt install docker.io`
 >Installs Docker for CLI on Linux ubuntu
 
@@ -133,7 +133,7 @@ cd chef-repo
 >Logs in to docker group. If a daemon issue persists beyond the previous two steps, you may need to reboot your system.
 
 
-### **Kubernetes**
+## **Kubernetes**
 
 **Basic yaml orchestration format**
 
@@ -232,16 +232,16 @@ is specified in the yaml file, it will launch services to expose pods
 http://192.168.1.xxx:8001/api/v1/namespaces/default/services/service-name:XXXX/proxy/<br />
 Use --accept-hosts ip with port 8001, fill in service-name with the name of your deployment's service, and use the port of the service itself (not targetPort or nodePort, just port)
 
-### **Ruby**
+## **Ruby**
 
 `puts` vs `print`
 >Puts will automatically input a new line at the end of the string. Print requires a "\n" line break for any new lines.
 
 
-### **Python**
+## **Python**
 
-##### Install Pytest
+#### Install Pytest
 [Reference](https://pytest-flask.readthedocs.io/en/latest/tutorial.html)
 
-##### Using Pytest
+#### Using Pytest
 [Reference](https://iammehdi.medium.com/testing-flask-apps-with-pytest-5b7af093c53d)
