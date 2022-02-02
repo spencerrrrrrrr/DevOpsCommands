@@ -10,7 +10,7 @@
 ### **Ubuntu Terminal**
 
 `sudo visudo`
->Lets user edit /etc/sudoers. Add "<username> ALL=(ALL:ALL)"
+>Add sudoers/change sudo privileges. Lets user edit /etc/sudoers. Add "<username> ALL=(ALL:ALL)"
 Follow (ALL:ALL) with password settings - ALL is password enabled, NOPASSWD:
 ALL disables password required when sudoing
 
@@ -52,6 +52,8 @@ apt:
 [Resources](https://docs.chef.io/resources/)
 >Resources used in Chef are listed under the Infra portion of the Workstation
 
+**Setting Up Chef Server**
+---
 `sudo hostnamectl set-hostname chef-server.example.com`
 >Set server hostname that will be the DNS name of your Chef Server
 
@@ -71,7 +73,7 @@ VERSION="14.12.21
 wget https://packages.chef.io/files/stable/chef-server/${VERSION}/ubuntu/18.04/chef-server-core_${VERSION}-1_amd64.deb
 sudo apt install ./chef-server-core_${VERSION}-1_amd64.deb
 ```
->Installation process as of February 1st, 2022
+>Installs Chef Server 2/1/22
 
 `sudo chef-server-ctl user-create USER_NAME FIRST_NAME LAST_NAME EMAIL 'PASSWORD' --filename FILE_NAME`
 >Creates an admin account and auto generates an rsa key. FILE_NAME is where the key will be stored
@@ -79,6 +81,8 @@ sudo apt install ./chef-server-core_${VERSION}-1_amd64.deb
 `sudo chef-server-ctl org-create short_name 'full_organization_name' --association_user user_name --filename ORGANIZATION-validator.pem`
 >Creates an organization account. Name must begin with a lowercase letter or digit, no whitespace. user_name associates the specified user with the admins security group on the Chef server. --filename specifies where to save the rsa private key.
 
+**Setting Up Chef Manage**
+---
 ```
 sudo chef-server-ctl install chef-manage
 sudo chef-server-ctl reconfigure
@@ -92,20 +96,17 @@ sudo chef-manage-ctl reconfigure
 ```
 >Installs the Chef management console, **WHICH IS ONLY FREE FOR UP TO 25 NODES**
 
+**Setting Up Chef Workstation**
+---
 `sudo ufw allow proto tcp from any to any port 80,443`
 >Opens ports 80 and 443 because those are the ports Chef is using
-
-```
-VER=4.13.3
-wget https://packages.chef.io/files/stable/chefdk/${VER}/ubuntu/20.04/chefdk_${VER}-1_amd64.deb
-```
->Installs ChefDK for Ubuntu 20.04 2/1/22
 
 ```
 VER="22.1.745"
 wget https://packages.chef.io/files/stable/chef-workstation/${VER}/ubuntu/20.04/chef-workstation_${VER}-1_amd64.deb
 ```
 >Installs Chef Workstation for Ubuntu 20.04 2/1/22
+[Chef Workstation Downloads](https://www.chef.io/downloads/tools/workstation)
 
 ```
 chef generate repo chef-repo
