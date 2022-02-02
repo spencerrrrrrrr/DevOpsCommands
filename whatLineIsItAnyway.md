@@ -2,31 +2,6 @@
 [GitHub Flavored Markdown Cheat Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 >Format contributions to GitHub Flavored Markdown
 
-## **CentOS Terminal**
-
-`rpm -ivh`
->RPM is the CentOS Package Manager. The -i flag indicates install packages, -v indicates verbose, and -h prints hash marks as package installs.
-
-## **Ubuntu Terminal**
-
-`sudo visudo`
->Add sudoers/change sudo privileges. Lets user edit /etc/sudoers. Add "<username> ALL=(ALL:ALL)"
-Follow (ALL:ALL) with password settings - ALL is password enabled, NOPASSWD:
-ALL disables password required when sudoing
-
-`cat /etc/passwd`
->Gets general info about users
-
-## **Git**
-```
-git config --global user.name perscholas2021
-git config --global user.email perscholas2021@gmail.com
-```
->Configures your git username and email to identify who is making the commits
-
-`git branch -m master main`
->Changes name of git branch from master to main. Replace `master` and `main` to rename branches as necessary
-
 ## **Ansible**
 ***Target users must have sudoer privileges in /etc/sudoers/
 ansible_sudo_pass="yourPassword" >Place in inventory.txt file
@@ -245,3 +220,28 @@ Use --accept-hosts ip with port 8001, fill in service-name with the name of your
 
 #### Using Pytest
 [Reference](https://iammehdi.medium.com/testing-flask-apps-with-pytest-5b7af093c53d)
+
+## **CentOS Terminal**
+
+`rpm -ivh`
+>RPM is the CentOS Package Manager. The -i flag indicates install packages, -v indicates verbose, and -h prints hash marks as package installs.
+
+## **Ubuntu Terminal**
+
+`sudo visudo`
+>Add sudoers/change sudo privileges. Lets user edit /etc/sudoers. Add "<username> ALL=(ALL:ALL)"
+Follow (ALL:ALL) with password settings - ALL is password enabled, NOPASSWD:
+ALL disables password required when sudoing
+
+`cat /etc/passwd`
+>Gets general info about users
+
+## **Git**
+```
+git config --global user.name perscholas2021
+git config --global user.email perscholas2021@gmail.com
+```
+>Configures your git username and email to identify who is making the commits
+
+`git branch -m master main`
+>Changes name of git branch from master to main. Replace `master` and `main` to rename branches as necessary
