@@ -76,7 +76,8 @@ sudo chef-manage-ctl reconfigure
 
 **Setting Up Chef Workstation**
 ---
-`sudo ufw allow proto tcp from any to any port 80,443`
+`sudo ufw allow proto tcp from any to any port 80`
+`sudo ufw allow proto tcp from any to any port 443`
 >Opens ports 80 and 443 because those are the ports Chef is using
 
 ```
@@ -110,8 +111,13 @@ client_key "path/to/key-directory/user-name.pem"
 validation_client_name   'organization-name-validator'
 validation_key "organization-name-validator.pem"
 chef_server_url "https://chef-server.example.com/organizations/perscholas"
-cookbook_path ["/path/to/current-directory/../cookbooks"]
+cache_type 'BasicFile'
+cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
+cookbook_path ["#{current_dir}/../cookbooks"]
 ```
+
+`knife ssl fetch`
+>Fetch the SSL certificate from your Chef server. Perform this command from the directory your keys are in
 
 `cookstyle recipe-file.rb`
 >Checks for proper syntax
