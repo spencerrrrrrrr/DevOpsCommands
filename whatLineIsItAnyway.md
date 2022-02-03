@@ -59,6 +59,8 @@ sudo chef-server-ctl user-create USER_NAME FIRST_NAME LAST_NAME EMAIL 'PASSWORD'
 `sudo chef-server-ctl org-create short_name 'full_organization_name' --association_user user_name --filename /path/to/org-validator.pem`
 >Creates an organization account. Short name must be all lowercase letters or digits, and the full name can't start with a whitespace. user_name associates the specified user with the admins security group on the Chef server. --filename specifies where to save the rsa private key that is generated with this command - not the same name as the key generated with user-create.
 
+`chef_server_ctl`
+
 **Setting Up Chef Manage**
 ---
 ```
@@ -122,12 +124,19 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 >Fetch the SSL certificate from your Chef server. Perform this command from the directory your keys are in
 
 `knife ssl check`
->Verifies SSL certificates from the Chef server
+>Validates SSL certificates from the Chef server
+
+`file trusted_certs/chef-server.crt`
+>Displays more detail about the file type, in this case it would output `trusted_certs/chef-server.crt: PEM certificate`
 
 `knife client list`
 >Checks knife's client list
+---
 
-`cookstyle recipe-file.rb`
+ `chef generate cookbook cookbook/path/cookbook-name`
+ >Generates a cookbook file. Path is optional, without it the cookbook will be created in the current working directory.
+
+`cookstyle cookbook-file.rb`
 >Checks for proper syntax
 
 `chef-client --local-mode --why-run recipe-file.rb`
