@@ -26,15 +26,15 @@ apt:
 ## **Chef**
 [Resources](https://docs.chef.io/resources/)
 >Resources used in Chef are listed under the Infra portion of the Workstation
+**Be sure to disable Apache2 or anything else that might be using ports 80 or 443**
 
 **Setting Up Chef Server**
 ---
-`sudo hostnamectl set-hostname chef-server.example.com`
->Set server hostname that will be the DNS name of your Chef Server
-
-`sudo nano /ect/hosts`
-`127.0.0.1 chef-server.example.com`
->Modifies access to your Chef host
+```
+sudo vim /ect/hosts
+127.0.0.1 chef-server.example.com
+```
+>If you have an active DNS server, set the A record accordingly. For installations without DNSserver, set the record on /etc/hosts file
 
 ```
 sudo apt -y install chrony
@@ -50,11 +50,14 @@ sudo apt install ./chef-server-core_${VERSION}-1_amd64.deb
 ```
 >Installs Chef Server 2/1/22
 
-`sudo chef-server-ctl user-create USER_NAME FIRST_NAME LAST_NAME EMAIL 'PASSWORD' --filename FILE_NAME`
->Creates an admin account and auto generates an rsa key. FILE_NAME is where the key will be stored
+```
+sudo chef-server-ctl reconfigure
+sudo chef-server-ctl user-create USER_NAME FIRST_NAME LAST_NAME EMAIL 'PASSWORD' --filename FILE_NAME
+```
+>Creates an admin account and auto generates an rsa key. FILE_NAME is where the key will be stored - this is not the same key as the one generated with org-create. Password must be added within quotes.
 
-`sudo chef-server-ctl org-create short_name 'full_organization_name' --association_user user_name --filename ORGANIZATION-validator.pem`
->Creates an organization account. Name must begin with a lowercase letter or digit, no whitespace. user_name associates the specified user with the admins security group on the Chef server. --filename specifies where to save the rsa private key.
+`sudo chef-server-ctl org-create short_name 'full_organization_name' --association_user user_name --filename /path/to/org-validator.pem`
+>Creates an organization account. Short name must be all lowercase letters or digits, and the full name can't start with a whitespace. user_name associates the specified user with the admins security group on the Chef server. --filename specifies where to save the rsa private key that is generated with this command - not the same name as the key generated with user-create.
 
 **Setting Up Chef Manage**
 ---
@@ -82,7 +85,7 @@ wget https://packages.chef.io/files/stable/chef-workstation/${VER}/ubuntu/20.04/
 sudo dpkg -i chef-workstation_*.deb
 rm chef-workstation_*.deb
 ```
->Installs Chef Workstation for Ubuntu 20.04 2/1/22
+>Installs Chef Workstation for Ubuntu 20.04 2/1/22. If the dpkg command
 [Chef Workstation Downloads](https://www.chef.io/downloads/tools/workstation)
 
 ```
@@ -91,14 +94,24 @@ cd chef-repo
 ```
 >Generates a Chef repo on your Workstation machine
 
-```
-cd chef-repo
-mkdir .chef
-cd .chef
-```
->Creates a directory, .chef, inside your chef-repo that is meant to contain your knife.rb file and your rsa key
+*If you move .chef into the chef-repo, be sure to create a .gitignore file and add .chef to it.*
 
-*Be sure to create a .gitignore file and add .chef to it.*
+`scp chef-server-ip:/home/user-or-group-validator.pem .`
+>Perform on Workstation. Grabs the public key from the Chef Server.
+
+*Create a knife.rb file*
+
+```
+current_dir = File.dirname(__FILE__)
+log_level :info
+log_location STDOUT
+node_name "user-name"
+client_key "path/to/key-directory/user-name.pem"
+validation_client_name   'organization-name-validator'
+validation_key "organization-name-validator.pem"
+chef_server_url "https://chef-server.example.com/organizations/perscholas"
+cookbook_path ["/path/to/current-directory/../cookbooks"]
+```
 
 `cookstyle recipe-file.rb`
 >Checks for proper syntax
@@ -217,6 +230,23 @@ is specified in the yaml file, it will launch services to expose pods
 >Proxy must be accessed via this link format:<br />
 http://192.168.1.xxx:8001/api/v1/namespaces/default/services/service-name:XXXX/proxy/<br />
 Use --accept-hosts ip with port 8001, fill in service-name with the name of your deployment's service, and use the port of the service itself (not targetPort or nodePort, just port)
+
+## **Apache2**
+
+`sudo systemctl status apache2`
+>Check the running status
+
+`sudo systemctl is-enabled apache2`
+>Check that Apache2 is enabled
+
+`sudo systemctl disable apache2`
+>Disable Apache2
+
+`sudo systemctl stop apache2`
+>Stops Apache2 from running
+
+`sudo systemctl mask apache2`
+>Links Apache2 unit files to /dev/null, making it impossible to start it
 
 ## **Ruby**
 
