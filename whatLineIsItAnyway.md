@@ -110,14 +110,22 @@ node_name "user-name"
 client_key "path/to/key-directory/user-name.pem"
 validation_client_name   'organization-name-validator'
 validation_key "organization-name-validator.pem"
-chef_server_url "https://chef-server.example.com/organizations/perscholas"
+chef_server_url "https://chef-server.example.com_or-ip-address/organizations/perscholas"
 cache_type 'BasicFile'
-cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
+cache_options(:path => "#{ENV['HOME']}/.chef/checksums")
+#My build did not like the "=>" in the cache_options, but it seemed to work for some. Include it, then check compatibility with the command "cookstyle knife.rb". If your system doesn't like it, you can remove that or autocorrect with cookstyle -a knife.rb
 cookbook_path ["#{current_dir}/../cookbooks"]
 ```
+>Formatting for knife.rb, also known as config.rb. Either of these file names will be recognized as knife configuration.
 
 `knife ssl fetch`
 >Fetch the SSL certificate from your Chef server. Perform this command from the directory your keys are in
+
+`knife ssl check`
+>Verifies SSL certificates from the Chef server
+
+`knife client list`
+>Checks knife's client list
 
 `cookstyle recipe-file.rb`
 >Checks for proper syntax
