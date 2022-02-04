@@ -78,8 +78,10 @@ sudo chef-manage-ctl reconfigure
 
 **Setting Up Chef Workstation**
 ---
-`sudo ufw allow proto tcp from any to any port 80`
-`sudo ufw allow proto tcp from any to any port 443`
+```
+sudo ufw allow proto tcp from any to any port 80
+sudo ufw allow proto tcp from any to any port 443
+```
 >Opens ports 80 and 443 because those are the ports Chef is using
 
 ```
