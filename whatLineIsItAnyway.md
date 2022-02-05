@@ -31,7 +31,7 @@ apt:
 **Setting Up Chef Server**
 ---
 ```
-sudo vim /ect/hosts
+sudo vim /etc/hosts
 127.0.0.1 chef-server.example.com
 ```
 >If you have an active DNS server, set the A record accordingly. For installations without DNSserver, set the record on /etc/hosts file
