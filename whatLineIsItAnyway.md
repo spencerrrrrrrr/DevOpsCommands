@@ -66,8 +66,6 @@ sudo chef-server-ctl user-create USER_NAME FIRST_NAME LAST_NAME EMAIL 'PASSWORD'
 `sudo chef-server-ctl org-create short_name 'full_organization_name' --association_user user_name --filename /path/to/org-validator.pem`
 >Creates an organization account. Short name must be all lowercase letters or digits, and the full name can't start with a whitespace. user_name associates the specified user with the admins security group on the Chef server. --filename specifies where to save the rsa private key that is generated with this command - not the same name as the key generated with user-create.
 
-`chef_server_ctl`
-
 **Setting Up Chef Manage** *On Chef Server*
 ---
 ```
@@ -81,7 +79,7 @@ wget https://packages.chef.io/files/stable/chef-manage/${VER}/ubuntu/18.04/chef-
 sudo apt install -f ./chef-manage_${VER}-1_amd64.deb
 sudo chef-manage-ctl reconfigure
 ```
->Installs the Chef management console, **WHICH IS ONLY FREE FOR UP TO 25 NODES**
+>Installs the Chef management console, **WHICH IS ONLY FREE FOR UP TO 25 NODES**. This allows GUI access from the browser.
 
 **Setting Up Chef Workstation**
 ---
@@ -146,6 +144,11 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 `knife bootstrap 192.168.x.x --ssh-user node-username ssh-password username-password -N node_name --sudo --use-sudo -P sudo-password`
 >Bootstraps a node to be recognized by the Chef Server. -N seems to have better results than --node_name, although knife bootstrap --help suggests they are the same.
 
+`knife node list`
+>Lists all the nodes recognized by the Chef server
+
+`knife node show node-name`
+>Shows general details about the specified nodes
 ---
 
  `chef generate cookbook cookbook/path/cookbook-name`
