@@ -31,6 +31,12 @@ apt:
 **Setting Up Chef Server**
 ---
 ```
+sudo ufw allow proto tcp from any to any port 80
+sudo ufw allow proto tcp from any to any port 443
+```
+>Open ports for Chef to use
+
+```
 sudo vim /etc/hosts
 127.0.0.1 chef-server.example.com
 ```
@@ -40,8 +46,9 @@ sudo vim /etc/hosts
 sudo apt -y install chrony
 sudo timedatectl set-timezone America/New_York
 sudo systemctl restart chrony
+sudo timedatectl set-ntp true
 ```
->Because Chef is prone to time drift, it's best to connect your system to Network Time Protocol (NTP)
+>Because Chef is prone to time drift, it's best to connect your system to Network Time Protocol (NTP). `set-ntp true` ensures ntp synchronization
 
 ```
 VERSION="14.12.21"
@@ -61,7 +68,7 @@ sudo chef-server-ctl user-create USER_NAME FIRST_NAME LAST_NAME EMAIL 'PASSWORD'
 
 `chef_server_ctl`
 
-**Setting Up Chef Manage**
+**Setting Up Chef Manage** *On Chef Server*
 ---
 ```
 sudo chef-server-ctl install chef-manage
@@ -105,6 +112,8 @@ cd chef-repo
 >Perform on Workstation. Grabs the public key from the Chef Server.
 
 *Create a knife.rb file*
+`knife configure init-config`
+>Creates a config file after prompting the user for info to link the workstation to the server.
 
 ```
 current_dir = File.dirname(__FILE__)
@@ -133,10 +142,20 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 
 `knife client list`
 >Checks knife's client list
+
+`knife bootstrap 192.168.x.x --ssh-user node-username ssh-password username-password -N node_name --sudo --use-sudo -P sudo-password`
+>Bootstraps a node to be recognized by the Chef Server. -N seems to have better results than --node_name, although knife bootstrap --help suggests they are the same.
+
 ---
 
  `chef generate cookbook cookbook/path/cookbook-name`
  >Generates a cookbook file. Path is optional, without it the cookbook will be created in the current working directory.
+
+ `chef generate recipe recipe-name`
+ >Generates a new recipe file
+
+ *Recipes can be written and referenced in the default.rb file (created in every recipe file). When referencing the file in default.rb, format it like so:<br/> `include recipe recipe-folder-in-cookbook::recipe-file`*
+ >If you have a cookbook called create_user, and you made a file called user.rb, you would write this as `include recipe create_user::user`
 
 `cookstyle cookbook-file.rb`
 >Checks for proper syntax
@@ -144,7 +163,11 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 `chef-client --local-mode --why-run recipe-file.rb`
 >Performs a smoke test to check that we're getting the expected output. Only use --local mode when using Chef Zero. Otherwise run line without --local-mode. To apply changes, remove --why-run, because --why-run is used to check the output without applying it.
 
+`knife cookbook upload recipe-directory,more-recipes-comma-separated`
+>Uploads your recipe to the Chef Server
 
+`knife cookbook list`
+>List the cookbooks currently on the Chef Server
 
 ## **Docker**
 `sudo apt install docker.io`
@@ -301,6 +324,9 @@ ALL disables password required when sudoing
 
 `cat /etc/passwd`
 >Gets general info about users
+
+`scp <options> user@target_hostname_or_ip:absolute/path/files   <folder_local_system>`
+>Copies files from a remote system to your local system. User can also switch <folder_local_system> and remote target to send files to a remote machine from local. Great way to transfer public keys.
 
 ## **Git**
 ```
