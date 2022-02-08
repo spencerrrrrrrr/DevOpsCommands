@@ -163,18 +163,21 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 `cookstyle cookbook-file.rb`
 >Checks for proper syntax
 
-`chef-client --local-mode --why-run recipe-file.rb`
->Performs a smoke test to check that we're getting the expected output. Only use --local mode when using Chef Zero. Otherwise run line without --local-mode. To apply changes, remove --why-run, because --why-run is used to check the output without applying it.
-
 `knife cookbook upload recipe-directory,more-recipes-comma-separated`
 >Uploads your recipe to the Chef Server
 
 `knife cookbook list`
 >List the cookbooks currently on the Chef Server
 
+`chef-run node-name recipe`
+>Runs a cookbook, as long as the knife.rb indicates the correct directory that the cookbooks are stored in. If not, you can substitute `recipe` for `path/to/recipe`
+
 ## **Docker**
 `sudo apt install docker.io`
 >Installs Docker for CLI on Linux ubuntu
+
+`chef-client --local-mode --why-run recipe`
+>Performs a smoke test to check that we're getting the expected output. Only use --local mode when using Chef Zero. Otherwise run line without --local-mode. To apply changes, remove --why-run, because --why-run is used to check the output without applying it.
 
 `sudo usermod -aG docker $USER`
 >Adds the current user to the Docker group. Follow up with the command below to avoid a common daemonize error
