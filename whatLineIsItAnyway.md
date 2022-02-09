@@ -170,7 +170,7 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 >List the cookbooks currently on the Chef Server
 
 `chef-run node-name recipe`
->Runs a cookbook, as long as the knife.rb indicates the correct directory that the cookbooks are stored in. If not, you can substitute `recipe` for `path/to/recipe`
+>Runs a cookbook, as long as the knife.rb indicates the correct directory that the cookbooks are stored in. If not, you can substitute `recipe` for `path/to/recipe.`
 
 ## **Docker**
 `sudo apt install docker.io`
@@ -343,3 +343,12 @@ git config --global user.email perscholas2021@gmail.com
 
 `git branch -m master main`
 >Changes name of git branch from master to main. Replace `master` and `main` to rename branches as necessary
+
+`git remote add origin repo-link`
+>First time setting the remote repo
+
+`git remote set-url origin repo-link`
+>Replace an existing remote Link
+
+`git remote -v`
+>Check the remote repository linked to the local repository.
