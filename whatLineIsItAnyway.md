@@ -2,6 +2,31 @@
 [GitHub Flavored Markdown Cheat Sheet](https://gist.github.com/stevenyap/7038119)
 >Format contributions to GitHub Flavored Markdown
 
+## **Terraform**
+**AWS EC2 Provision**
+```
+provider "aws" {
+  region = "us-east-2"
+  access_key = "pasteAccessKeyFromIAM"
+  secret_key = "pasteSecretKeyFromIAM"
+}
+
+resource "aws_instance" "instance-name" {
+  ami = "ami-amiCodeShownWhenSelectingImage"
+  instance_type = "t2.micro"
+}
+
+```
+
+`terraform init`
+>Initializes Terraform. Perform from the same directory that your .tf file is in.
+
+`terraform plan`
+>Displays the changes that will occur when you apply your .tf file.
+
+`terraform apply`
+>Executes provisioning outlined in your .tf file.
+
 ## **Ansible**
 ***Target users must have sudoer privileges in /etc/sudoers/
 ansible_sudo_pass="yourPassword" >Place in inventory.txt file
@@ -170,14 +195,14 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 >List the cookbooks currently on the Chef Server
 
 `chef-run node-name recipe`
->Runs a cookbook, as long as the knife.rb indicates the correct directory that the cookbooks are stored in. If not, you can substitute `recipe` for `path/to/recipe.`
-
-## **Docker**
-`sudo apt install docker.io`
->Installs Docker for CLI on Linux ubuntu
+>Runs a cookbook, as long as the knife.rb indicates the correct directory that the cookbooks are stored in. If not, you can substitute `recipe` for `path/to/recipe. Works best if run from the cookbooks directory.`
 
 `chef-client --local-mode --why-run recipe`
 >Performs a smoke test to check that we're getting the expected output. Only use --local mode when using Chef Zero. Otherwise run line without --local-mode. To apply changes, remove --why-run, because --why-run is used to check the output without applying it.
+
+## **Docker**
+`sudo apt install docker.io`
+>Installs Docker for CLI on Linux ubuntu.
 
 `sudo usermod -aG docker $USER`
 >Adds the current user to the Docker group. Follow up with the command below to avoid a common daemonize error
@@ -189,8 +214,6 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 ## **Kubernetes**
 
 **Basic yaml orchestration format**
-
-
 ```
 apiVersion: (v1 for Pod, apps/v1 for others listed below)
 kind: (Pod, ReplicationController, ReplicaSet, Deployment)
@@ -217,7 +240,6 @@ spec:
         ports:
         - containerPort: portNum to expose from node
 ```
-
 >At the end of a Deployment or ReplicationController yaml file, you can control
 the number of replicas by adding "replicas:" in line with template:
 If using ReplicaSet or Deployment, you can match pod control up with other pods
