@@ -15,17 +15,31 @@ resource "aws_instance" "instance-name" {
   ami = "ami-amiCodeShownWhenSelectingImage"
   instance_type = "t2.micro"
 }
-
 ```
 
+`terraform fmt`
+>Checks for proper formatting in configuration files and returns the names of corrected files. No output means there were no errors.
+
 `terraform init`
->Initializes Terraform. Perform from the same directory that your .tf file is in.
+>Initializes Terraform resources such as a state file. Perform from the same directory that your .tf file is in.
 
 `terraform plan`
 >Displays the changes that will occur when you apply your .tf file.
 
 `terraform apply`
 >Executes provisioning outlined in your .tf file.
+
+`terraform destroy`
+>Destroys items specified in the .tf file. If you want to only destroy specific items, add `-target <resource>` (Destroying the item in my demo .tf would be written `terraform destroy -target aws_instance.instance-name`)
+
+`terraform refresh`
+>Grabs the current state of your resources and updates the .tfstate file accordingly. Useful if resources are modified outside of Terraform and user wants to realign their resources with the desired state outlined in the .tf file.
+
+`terraform state ls`
+>Shows a list of all resources
+
+`terraform state show <resource>`
+>Shows a specified resource's state. Not including a specified resource will dump info about all of the resources.
 
 ## **Ansible**
 ***Target users must have sudoer privileges in /etc/sudoers/
