@@ -2,6 +2,11 @@
 [GitHub Flavored Markdown Cheat Sheet](https://gist.github.com/stevenyap/7038119)
 >Format contributions to GitHub Flavored Markdown
 
+## **Jenkins**
+
+`java -jar jenkins.war`
+>Installs Jenkins at the default port 8080 from the .war file offered on (jenkins.io). *Optional: add --httpPort=xxxx to assign Jenkins to a specific port number other than 8080*
+
 ## **Terraform**
 **AWS EC2 Provision**
 ```
