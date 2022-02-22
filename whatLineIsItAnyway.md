@@ -2,6 +2,12 @@
 [GitHub Flavored Markdown Cheat Sheet](https://gist.github.com/stevenyap/7038119)
 >Format contributions to GitHub Flavored Markdown
 
+## **AWS CLI/CloudShell**
+>If a command does not work, check that you have the appropriate permissions to perform the command and that your AWS CLI is up to date.
+
+`aws iam list-users`
+>Lists all the users that have been created in IAM.
+
 ## **Jenkins**
 
 `java -jar jenkins.war`
@@ -325,6 +331,20 @@ is specified in the yaml file, it will launch services to expose pods
 >Proxy must be accessed via this link format:<br />
 http://192.168.1.xxx:8001/api/v1/namespaces/default/services/service-name:XXXX/proxy/<br />
 Use --accept-hosts ip with port 8001, fill in service-name with the name of your deployment's service, and use the port of the service itself (not targetPort or nodePort, just port)
+
+## **ELK Stack**
+**Installing**
+>To see the most recent versions, visit [the Elastic website](https://www.elastic.co/start)
+
+`wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.0.0-linux-x86_64.tar.gz`
+>Download the tar file for Elasticsearch
+
+`wget https://artifacts.elastic.co/downloads/kibana/kibana-8.0.0-linux-x86_64.tar.gz`
+>Download the tar file for Kibana
+
+`tar -zxf <elasticsearch.tar file>`
+`tar -zxf <kibana.tar file>`
+>Installs elasticsearch and kibana from the previously downloaded tar files
 
 ## **Apache2**
 
