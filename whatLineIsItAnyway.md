@@ -342,8 +342,8 @@ Use --accept-hosts ip with port 8001, fill in service-name with the name of your
 `wget https://artifacts.elastic.co/downloads/kibana/kibana-8.0.0-linux-x86_64.tar.gz`
 >Download the tar file for Kibana
 
-`tar -zxf <elasticsearch.tar file>`
-`tar -zxf <kibana.tar file>`
+`tar -zxf elasticsearch*.tar.gz`
+`tar -zxf kibana*.tar.gz`
 >Installs elasticsearch and kibana from the previously downloaded tar files
 
 ## **Apache2**
