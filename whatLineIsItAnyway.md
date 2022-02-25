@@ -332,7 +332,7 @@ is specified in the yaml file, it will launch services to expose pods
 http://192.168.1.xxx:8001/api/v1/namespaces/default/services/service-name:XXXX/proxy/<br />
 Use --accept-hosts ip with port 8001, fill in service-name with the name of your deployment's service, and use the port of the service itself (not targetPort or nodePort, just port)
 
-## **ELK Stack**
+## **Elastic Stack**
 **Installing**
 >To see the most recent versions, visit [the Elastic website](https://www.elastic.co/start)
 
@@ -345,6 +345,12 @@ Use --accept-hosts ip with port 8001, fill in service-name with the name of your
 `tar -zxf elasticsearch*.tar.gz`
 `tar -zxf kibana*.tar.gz`
 >Installs elasticsearch and kibana from the previously downloaded tar files
+
+`ssh user@xxx.xx.xx.xx -L 5601:localhost:5601`
+>When attempting to open Kibana in a browser while Kibana is running in a VM or Cloud environment, enter this command in a local terminal and it will forward the 5601 port to your localhost:5601
+
+`bin/elasticsearch-users useradd my_admin -p my_password -r superuser`
+>Creates a new user/password to access Elastic resources. Use of the superuser flag is optional.
 
 ## **Apache2**
 
