@@ -401,6 +401,12 @@ ALL disables password required when sudoing
 `scp <options> user@target_hostname_or_ip:absolute/path/files   <folder_local_system>`
 >Copies files from a remote system to your local system. User can also switch <folder_local_system> and remote target to send files to a remote machine from local. Great way to transfer public keys.
 
+`sudo swapon -a`
+>Turns swap memory on
+
+`sudo swapoff -a`
+>Turns swap memory off
+
 ## **Git**
 ```
 git config --global user.name perscholas2021
