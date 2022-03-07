@@ -352,6 +352,37 @@ Use --accept-hosts ip with port 8001, fill in service-name with the name of your
 `bin/elasticsearch-users useradd my_admin -p my_password -r superuser`
 >Creates a new user/password to access Elastic resources. Use of the superuser flag is optional.
 
+## **MySQL**
+`CREATE DATABASE <name>;`
+>Creates a SQL database.
+
+`DROP DATABASE <name>;`
+>Deletes the selected database. DROP may be use for other items such as tables.
+
+`SHOW DATABASES;`
+>Shows all available databases.
+
+`USE <database>`;
+>Moves into a database for use.
+
+`SELECT database();`
+>Displays the database currently being used.
+
+```
+CREATE TABLE <tablename>
+(
+  <column_name> <data_type>,
+  name varchar(255),
+  age int
+);
+```
+>Creates a table with a given name and defines the columns to be in that table. The varchar data type is for strings, and can't be set beyond 255, but does not have to be set to the maximum range.
+
+`SHOW TABLES`
+>Shows the tables available within a database.
+
+`SHOW COLUMNS FROM <table>;`
+
 ## **Apache2**
 
 `sudo systemctl status apache2`
