@@ -376,12 +376,25 @@ CREATE TABLE <tablename>
   age int
 );
 ```
->Creates a table with a given name and defines the columns to be in that table. The varchar data type is for strings, and can't be set beyond 255, but does not have to be set to the maximum range.
+>Creates a table with a given name and defines the columns to be in that table. The varchar data type is for strings, and can't be set beyond 255, but does not have to be set to the maximum range. Does not have to span multiple lines. Don't forget the commas!
 
 `SHOW TABLES`
 >Shows the tables available within a database.
 
 `SHOW COLUMNS FROM <table>;`
+>Displays the columns available in a table.
+
+`DROP TABLE <table>;`
+>Deletes the selected table.
+
+```
+INSERT INTO <tablename>(column_name1, column_name2)
+VALUES ("This data goes in column1", 777);
+```
+>Insert data into columns by name. There is a positional relationship as to what data is applied to which column i.e. 777 would be applied to column_name2 in this example. More than one set of values may be added at a time by adding more sets of information after VALUES, within parentheses, and with commas separating each set of data.
+
+`SELECT * FROM <tablename>;`
+>Displays all of the info that has already been inserted into the table.
 
 ## **Apache2**
 
