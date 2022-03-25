@@ -291,10 +291,13 @@ spec:
 
 `kubectl create -f yaml-file.yaml`
 >Creates a deployment based on the details outline in the yaml file. If kind: Service
-is specified in the yaml file, it will launch services to expose pods
+is specified in the yaml file, it will launch services to expose pods.
 
-`kubectl run pod-name --image image-to-pull-from-dockerhub`
->Creates a pod out of an image pulled from Docker Hub
+`kubectl create deployment --image=image-name deployment-name`
+>Creates a deployment from an image without the need for a yaml file. Add the --replicas flag to specify the scale to launch at.
+
+`kubectl run pod-name --image=image-to-pull-from-dockerhub`
+>Creates a pod out of an image pulled from Docker Hub. Add --dry-run=client -o yaml to create a detailed yaml file that can be modified later with namespaces, scale specs, etc.
 
 `kubectl apply -f file.yaml`
 >Refreshes a pod with the newest image and pod details
@@ -312,6 +315,12 @@ is specified in the yaml file, it will launch services to expose pods
 
 `kubectl get all`
 >Displays all pods, replica set, deployments, etc. at once.
+
+`kubectl get namespaces`
+>Displays a list of available namespaces.
+
+`kubectl get pods --all-namespaces`
+>Shows all the pods available in all namespaces. May swap out --all-namespaces with a specific namespace.
 
 `minikube service service-name --url`
 >Displays the url and port num of the pod exposure in local node
