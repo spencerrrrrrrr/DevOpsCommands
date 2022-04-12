@@ -225,6 +225,9 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 `chef-client --local-mode --why-run recipe`
 >Performs a smoke test to check that we're getting the expected output. Only use --local mode when using Chef Zero. Otherwise run line without --local-mode. To apply changes, remove --why-run, because --why-run is used to check the output without applying it.
 
+## **Puppet**
+Coming Soon
+
 ## **Docker**
 `sudo apt install docker.io`
 >Installs Docker for CLI on Linux ubuntu.
@@ -405,6 +408,9 @@ VALUES ("This data goes in column1", 777);
 `SELECT * FROM <tablename>;`
 >Displays all of the info that has already been inserted into the table.
 
+`SELECT * FROM <table1>, <table2> WHERE <table1>.date=<table2>.date`
+>This is a table join statement. This combines data from table1 and table2 based on the conditions defined in the WHERE statement. In this case the search displays all the cases where a date from table1 matches a date from table2.
+
 ## **Apache2**
 
 `sudo systemctl status apache2`
@@ -478,3 +484,17 @@ git config --global user.email perscholas2021@gmail.com
 
 `git remote -v`
 >Check the remote repository linked to the local repository.
+
+---
+`git branch -m master main`
+>Changes the branch name from master to main. If you're changing branch name mid-project, use the following 3 steps to update branch name everywhere:
+
+`git push -u origin main`
+>Pushes the main branch to the remote repository to prep for master deletion
+
+`git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main`
+>Points HEAD to main branch.
+
+`git push origin --delete master`
+>Deletes the master branch from the remote repository.
+---
