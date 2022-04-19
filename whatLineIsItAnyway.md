@@ -226,7 +226,7 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 >Performs a smoke test to check that we're getting the expected output. Only use --local mode when using Chef Zero. Otherwise run line without --local-mode. To apply changes, remove --why-run, because --why-run is used to check the output without applying it.
 
 ## **Puppet**
-(Official Site)[https://puppet.com/docs/puppet/7/install_puppet.html#install_puppet]
+[Official Site](https://puppet.com/docs/puppet/7/install_puppet.html#install_puppet)
 
 **Puppet Server Installation (Ubuntu)**
 ---
@@ -268,6 +268,9 @@ OR
 
 `/etc/default/puppetserver`
 >Contains init settings for Puppet server in Ubuntu.
+
+`puppet agent -t --config ./temporary_config.conf`
+>"The puppet.conf file is always located at $confdir/puppet.conf. Although its location is configurable with the config setting, it can be set only on the command line." Above is an example usage. [Ref](https://puppet.com/docs/puppet/latest/config_file_main.html)
 
 ## **Docker**
 `sudo apt install docker.io`
