@@ -226,7 +226,48 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 >Performs a smoke test to check that we're getting the expected output. Only use --local mode when using Chef Zero. Otherwise run line without --local-mode. To apply changes, remove --why-run, because --why-run is used to check the output without applying it.
 
 ## **Puppet**
-Coming Soon
+(Official Site)[https://puppet.com/docs/puppet/7/install_puppet.html#install_puppet]
+
+**Puppet Server Installation (Ubuntu)**
+---
+`wget https://apt.puppet.com/puppet7-release-focal.deb`
+>Downloads the Puppet package repositories for installation.
+
+`dpkg -i <FILE_NAME>.deb`
+>Installs the Puppet files from the previous step.
+
+`apt-get install puppetserver`
+>Installs the Puppet Server software.
+
+`systemctl start puppetserver`
+>Starts the Puppet Server as a service in Ubuntu.
+
+`bash -l`
+>Update PATH
+---
+
+**Puppet Agent Installation (Ubuntu)**
+---
+`wget https://apt.puppet.com/puppet7-release-focal.deb`
+>Downloads the Puppet package repositories for installation.
+
+`dpkg -i <FILE_NAME>.deb`
+>Installs the Puppet files from the previous step.
+
+`sudo apt-get install puppet-agent`
+>Installs the Puppet agent software.
+
+`sudo /opt/puppetlabs/bin/puppet resource service puppet ensure=running enable=true`
+>Start the Puppet service.
+
+`source /etc/profile.d/puppet-agent.sh`
+OR
+`export PATH=/opt/puppetlabs/bin:$PATH`
+>Adds the puppet command to PATH. The "source" method uses a script installed by puppet-agent to add to PATH.
+---
+
+`/etc/default/puppetserver`
+>Contains init settings for Puppet server in Ubuntu.
 
 ## **Docker**
 `sudo apt install docker.io`
