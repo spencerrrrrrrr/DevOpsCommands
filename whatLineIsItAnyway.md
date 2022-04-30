@@ -2,55 +2,28 @@
 [GitHub Flavored Markdown Cheat Sheet](https://gist.github.com/stevenyap/7038119)
 >Format contributions to GitHub Flavored Markdown
 
+## **Apache2**
+
+`sudo systemctl status apache2`
+>Check the running status
+
+`sudo systemctl is-enabled apache2`
+>Check that Apache2 is enabled
+
+`sudo systemctl disable apache2`
+>Disable Apache2
+
+`sudo systemctl stop apache2`
+>Stops Apache2 from running
+
+`sudo systemctl mask apache2`
+>Links Apache2 unit files to /dev/null, making it impossible to start it
+
 ## **AWS CLI/CloudShell**
 >If a command does not work, check that you have the appropriate permissions to perform the command and that your AWS CLI is up to date.
 
 `aws iam list-users`
 >Lists all the users that have been created in IAM.
-
-## **Jenkins**
-
-`java -jar jenkins.war`
->Installs Jenkins at the default port 8080 from the .war file offered on (jenkins.io). *Optional: add --httpPort=xxxx to assign Jenkins to a specific port number other than 8080*
-
-## **Terraform**
-**AWS EC2 Provision**
-```
-provider "aws" {
-  region = "us-east-2"
-  access_key = "pasteAccessKeyFromIAM"
-  secret_key = "pasteSecretKeyFromIAM"
-}
-
-resource "aws_instance" "instance-name" {
-  ami = "ami-amiCodeShownWhenSelectingImage"
-  instance_type = "t2.micro"
-}
-```
-
-`terraform fmt`
->Checks for proper formatting in configuration files and returns the names of corrected files. No output means there were no errors.
-
-`terraform init`
->Initializes Terraform resources such as a state file. Perform from the same directory that your .tf file is in.
-
-`terraform plan`
->Displays the changes that will occur when you apply your .tf file.
-
-`terraform apply`
->Executes provisioning outlined in your .tf file.
-
-`terraform destroy`
->Destroys items specified in the .tf file. If you want to only destroy specific items, add `-target <resource>` (Destroying the item in my demo .tf would be written `terraform destroy -target aws_instance.instance-name`)
-
-`terraform refresh`
->Grabs the current state of your resources and updates the .tfstate file accordingly. Useful if resources are modified outside of Terraform and user wants to realign their resources with the desired state outlined in the .tf file.
-
-`terraform state ls`
->Shows a list of all resources
-
-`terraform state show <resource>`
->Shows a specified resource's state. Not including a specified resource will dump info about all of the resources.
 
 ## **Ansible**
 ***Target users must have sudoer privileges in /etc/sudoers/
@@ -225,53 +198,6 @@ cookbook_path ["#{current_dir}/../cookbooks"]
 `chef-client --local-mode --why-run recipe`
 >Performs a smoke test to check that we're getting the expected output. Only use --local mode when using Chef Zero. Otherwise run line without --local-mode. To apply changes, remove --why-run, because --why-run is used to check the output without applying it.
 
-## **Puppet**
-[Official Site](https://puppet.com/docs/puppet/7/install_puppet.html#install_puppet)
-
-**Puppet Server Installation (Ubuntu)**
----
-`wget https://apt.puppet.com/puppet7-release-focal.deb`
->Downloads the Puppet package repositories for installation.
-
-`dpkg -i <FILE_NAME>.deb`
->Installs the Puppet files from the previous step.
-
-`apt-get install puppetserver`
->Installs the Puppet Server software.
-
-`systemctl start puppetserver`
->Starts the Puppet Server as a service in Ubuntu.
-
-`bash -l`
->Update PATH
----
-
-**Puppet Agent Installation (Ubuntu)**
----
-`wget https://apt.puppet.com/puppet7-release-focal.deb`
->Downloads the Puppet package repositories for installation.
-
-`dpkg -i <FILE_NAME>.deb`
->Installs the Puppet files from the previous step.
-
-`sudo apt-get install puppet-agent`
->Installs the Puppet agent software.
-
-`sudo /opt/puppetlabs/bin/puppet resource service puppet ensure=running enable=true`
->Start the Puppet service.
-
-`source /etc/profile.d/puppet-agent.sh`
-OR
-`export PATH=/opt/puppetlabs/bin:$PATH`
->Adds the puppet command to PATH. The "source" method uses a script installed by puppet-agent to add to PATH.
----
-
-`/etc/default/puppetserver`
->Contains init settings for Puppet server in Ubuntu.
-
-`puppet agent -t --config ./temporary_config.conf`
->"The puppet.conf file is always located at $confdir/puppet.conf. Although its location is configurable with the config setting, it can be set only on the command line." Above is an example usage. [Ref](https://puppet.com/docs/puppet/latest/config_file_main.html)
-
 ## **Docker**
 `sudo apt install docker.io`
 >Installs Docker for CLI on Linux ubuntu.
@@ -282,6 +208,63 @@ OR
 `newgrp docker`
 >Logs in to docker group. If a daemon issue persists beyond the previous two steps, you may need to reboot your system.
 
+## **Elastic Stack**
+**Installing**
+>To see the most recent versions, visit [the Elastic website](https://www.elastic.co/start)
+
+`wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.0.0-linux-x86_64.tar.gz`
+>Download the tar file for Elasticsearch
+
+`wget https://artifacts.elastic.co/downloads/kibana/kibana-8.0.0-linux-x86_64.tar.gz`
+>Download the tar file for Kibana
+
+`tar -zxf elasticsearch*.tar.gz`
+`tar -zxf kibana*.tar.gz`
+>Installs elasticsearch and kibana from the previously downloaded tar files
+
+`ssh user@xxx.xx.xx.xx -L 5601:localhost:5601`
+>When attempting to open Kibana in a browser while Kibana is running in a VM or Cloud environment, enter this command in a local terminal and it will forward the 5601 port to your localhost:5601
+
+`bin/elasticsearch-users useradd my_admin -p my_password -r superuser`
+>Creates a new user/password to access Elastic resources. Use of the superuser flag is optional.
+
+## **Git**
+```
+git config --global user.name perscholas2021
+git config --global user.email perscholas2021@gmail.com
+```
+>Configures your git username and email to identify who is making the commits
+
+`git branch -m master main`
+>Changes name of git branch from master to main. Replace `master` and `main` to rename branches as necessary
+
+`git remote add origin repo-link`
+>First time setting the remote repo
+
+`git remote set-url origin repo-link`
+>Replace an existing remote Link
+
+`git remote -v`
+>Check the remote repository linked to the local repository.
+
+---
+`git branch -m master main`
+>Changes the branch name from master to main. If you're changing branch name mid-project, use the following 3 steps to update branch name everywhere:
+
+`git push -u origin main`
+>Pushes the main branch to the remote repository to prep for master deletion
+
+`git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main`
+>Points HEAD to main branch.
+
+`git push origin --delete master`
+>Deletes the master branch from the remote repository.
+---
+
+## **Jenkins**
+
+`java -jar jenkins.war`
+>Installs Jenkins at the default port 8080 from the .war file offered on (jenkins.io). *Optional: add --httpPort=xxxx to assign Jenkins to a specific port number other than 8080*
 
 ## **Kubernetes**
 
@@ -388,26 +371,6 @@ is specified in the yaml file, it will launch services to expose pods.
 http://192.168.1.xxx:8001/api/v1/namespaces/default/services/service-name:XXXX/proxy/<br />
 Use --accept-hosts ip with port 8001, fill in service-name with the name of your deployment's service, and use the port of the service itself (not targetPort or nodePort, just port)
 
-## **Elastic Stack**
-**Installing**
->To see the most recent versions, visit [the Elastic website](https://www.elastic.co/start)
-
-`wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.0.0-linux-x86_64.tar.gz`
->Download the tar file for Elasticsearch
-
-`wget https://artifacts.elastic.co/downloads/kibana/kibana-8.0.0-linux-x86_64.tar.gz`
->Download the tar file for Kibana
-
-`tar -zxf elasticsearch*.tar.gz`
-`tar -zxf kibana*.tar.gz`
->Installs elasticsearch and kibana from the previously downloaded tar files
-
-`ssh user@xxx.xx.xx.xx -L 5601:localhost:5601`
->When attempting to open Kibana in a browser while Kibana is running in a VM or Cloud environment, enter this command in a local terminal and it will forward the 5601 port to your localhost:5601
-
-`bin/elasticsearch-users useradd my_admin -p my_password -r superuser`
->Creates a new user/password to access Elastic resources. Use of the superuser flag is optional.
-
 ## **MySQL**
 `CREATE DATABASE <name>;`
 >Creates a SQL database.
@@ -455,28 +418,52 @@ VALUES ("This data goes in column1", 777);
 `SELECT * FROM <table1>, <table2> WHERE <table1>.date=<table2>.date`
 >This is a table join statement. This combines data from table1 and table2 based on the conditions defined in the WHERE statement. In this case the search displays all the cases where a date from table1 matches a date from table2.
 
-## **Apache2**
+## **Puppet**
+[Official Site](https://puppet.com/docs/puppet/7/install_puppet.html#install_puppet)
 
-`sudo systemctl status apache2`
->Check the running status
+**Puppet Server Installation (Ubuntu)**
+---
+`wget https://apt.puppet.com/puppet7-release-focal.deb`
+>Downloads the Puppet package repositories for installation.
 
-`sudo systemctl is-enabled apache2`
->Check that Apache2 is enabled
+`dpkg -i <FILE_NAME>.deb`
+>Installs the Puppet files from the previous step.
 
-`sudo systemctl disable apache2`
->Disable Apache2
+`apt-get install puppetserver`
+>Installs the Puppet Server software.
 
-`sudo systemctl stop apache2`
->Stops Apache2 from running
+`systemctl start puppetserver`
+>Starts the Puppet Server as a service in Ubuntu.
 
-`sudo systemctl mask apache2`
->Links Apache2 unit files to /dev/null, making it impossible to start it
+`bash -l`
+>Update PATH
+---
 
-## **Ruby**
+**Puppet Agent Installation (Ubuntu)**
+---
+`wget https://apt.puppet.com/puppet7-release-focal.deb`
+>Downloads the Puppet package repositories for installation.
 
-`puts` vs `print`
->Puts will automatically input a new line at the end of the string. Print requires a "\n" line break for any new lines.
+`dpkg -i <FILE_NAME>.deb`
+>Installs the Puppet files from the previous step.
 
+`sudo apt-get install puppet-agent`
+>Installs the Puppet agent software.
+
+`sudo /opt/puppetlabs/bin/puppet resource service puppet ensure=running enable=true`
+>Start the Puppet service.
+
+`source /etc/profile.d/puppet-agent.sh`
+OR
+`export PATH=/opt/puppetlabs/bin:$PATH`
+>Adds the puppet command to PATH. The "source" method uses a script installed by puppet-agent to add to PATH.
+---
+
+`/etc/default/puppetserver`
+>Contains init settings for Puppet server in Ubuntu.
+
+`puppet agent -t --config ./temporary_config.conf`
+>"The puppet.conf file is always located at $confdir/puppet.conf. Although its location is configurable with the config setting, it can be set only on the command line." Above is an example usage. [Ref](https://puppet.com/docs/puppet/latest/config_file_main.html)
 
 ## **Python**
 
@@ -485,6 +472,53 @@ VALUES ("This data goes in column1", 777);
 
 #### Using Pytest
 [Reference](https://iammehdi.medium.com/testing-flask-apps-with-pytest-5b7af093c53d)
+
+## **Ruby**
+
+`puts` vs `print`
+>Puts will automatically input a new line at the end of the string. Print requires a "\n" line break for any new lines.
+
+## **Terraform**
+**AWS EC2 Provision**
+```
+provider "aws" {
+  region = "us-east-2"
+  access_key = "pasteAccessKeyFromIAM"
+  secret_key = "pasteSecretKeyFromIAM"
+}
+
+resource "aws_instance" "instance-name" {
+  ami = "ami-amiCodeShownWhenSelectingImage"
+  instance_type = "t2.micro"
+}
+```
+
+`terraform fmt`
+>Checks for proper formatting in configuration files and returns the names of corrected files. No output means there were no errors.
+
+`terraform init`
+>Initializes Terraform resources such as a state file. Perform from the same directory that your .tf file is in.
+
+`terraform plan`
+>Displays the changes that will occur when you apply your .tf file.
+
+`terraform apply`
+>Executes provisioning outlined in your .tf file.
+
+`terraform destroy`
+>Destroys items specified in the .tf file. If you want to only destroy specific items, add `-target <resource>` (Destroying the item in my demo .tf would be written `terraform destroy -target aws_instance.instance-name`)
+
+`terraform refresh`
+>Grabs the current state of your resources and updates the .tfstate file accordingly. Useful if resources are modified outside of Terraform and user wants to realign their resources with the desired state outlined in the .tf file.
+
+`terraform state ls`
+>Shows a list of all resources
+
+`terraform state show <resource>`
+>Shows a specified resource's state. Not including a specified resource will dump info about all of the resources.
+
+# **Linux Systems**
+>References to Linux commands that I've found useful along the way.
 
 ## **CentOS Terminal**
 
@@ -509,36 +543,3 @@ ALL disables password required when sudoing
 
 `sudo swapoff -a`
 >Turns swap memory off
-
-## **Git**
-```
-git config --global user.name perscholas2021
-git config --global user.email perscholas2021@gmail.com
-```
->Configures your git username and email to identify who is making the commits
-
-`git branch -m master main`
->Changes name of git branch from master to main. Replace `master` and `main` to rename branches as necessary
-
-`git remote add origin repo-link`
->First time setting the remote repo
-
-`git remote set-url origin repo-link`
->Replace an existing remote Link
-
-`git remote -v`
->Check the remote repository linked to the local repository.
-
----
-`git branch -m master main`
->Changes the branch name from master to main. If you're changing branch name mid-project, use the following 3 steps to update branch name everywhere:
-
-`git push -u origin main`
->Pushes the main branch to the remote repository to prep for master deletion
-
-`git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main`
->Points HEAD to main branch.
-
-`git push origin --delete master`
->Deletes the master branch from the remote repository.
----
