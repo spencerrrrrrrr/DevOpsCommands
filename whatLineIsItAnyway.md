@@ -46,6 +46,25 @@ apt:
 ```
 >Format to install packages in ubuntu via Ansible
 
+>From [Ansible for DevOps - Jeff Geerling](https://www.amazon.com/Ansible-DevOps-Server-configuration-management/dp/0986393428/)
+"There are nine basic measures to ensure servers are secure from unauthorized access
+or intercepted communications:
+1. Use secure and encrypted communication.
+2. Disable root login and use sudo.
+3. Remove unused software, open only required ports.
+4. Use the principle of least privilege.
+5. Update the OS and installed software.
+6. Use a properly-configured firewall.
+7. Make sure log files are populated and rotated.
+8. Monitor logins and block suspect IP addresses.
+9. Use SELinux (Security-Enhanced Linux)."
+
+`ansible -i hosts.ini example -a "free -h" -u [username]`
+>Checks memory usage in targets. In this case, the targets under the group "example" is checked on.
+
+`ansible multi -b -a "chronyc tracking"`
+>Checks the time synchronization via chrony in the group specified, in this case the "multi" group.
+
 ## **Chef**
 [Resources](https://docs.chef.io/resources/)
 >Resources used in Chef are listed under the Infra portion of the Workstation
