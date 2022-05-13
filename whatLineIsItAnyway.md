@@ -65,6 +65,26 @@ or intercepted communications:
 `ansible multi -b -a "chronyc tracking"`
 >Checks the time synchronization via chrony in the group specified, in this case the "multi" group.
 
+`ansible app -b -m user -a "name=johndoe group=admin createhome=yes"`
+>Adds a user to the target group, assigns them to a group and creates a home directory for them.
+
+`ansible app -b -m user -a "name=johndoe state=absent remove=yes"`
+>Removes a user in a target group.
+
+`ansible app -b -m package -a "name=git state=present"`
+>Package is a widely used module to install packages across multiple OS types.
+
+`ansible multi -m copy -a "src=/etc/hosts dest=/tmp/hosts"`
+>Copies files from a src into the targets' destinations. Inserting a trailing slash will copy only the files, while omitting the trailing slash will copy the files AND the folder.
+
+`ansible target -m file -a "dest=/tmp/test mode=644 state=directory"`
+>Create a file or directory and specify permissions with the mode argument. Set state to absent to remove the file/directory
+
+>To run a command in the background, you set the following options:
+• -B <seconds>: the maximum amount of time (in seconds) to let the job run.
+• -P <seconds>: the amount of time (in seconds) to wait between polling the
+servers for an updated job status.
+
 ## **Chef**
 [Resources](https://docs.chef.io/resources/)
 >Resources used in Chef are listed under the Infra portion of the Workstation
@@ -437,6 +457,12 @@ VALUES ("This data goes in column1", 777);
 `SELECT * FROM <table1>, <table2> WHERE <table1>.date=<table2>.date`
 >This is a table join statement. This combines data from table1 and table2 based on the conditions defined in the WHERE statement. In this case the search displays all the cases where a date from table1 matches a date from table2.
 
+## **Prometheus**
+[Downloads](https://prometheus.io/download/#node_exporter)
+[Documentation](https://prometheus.io/docs/tutorials/getting_started/)
+
+``
+
 ## **Puppet**
 [Official Site](https://puppet.com/docs/puppet/7/install_puppet.html#install_puppet)
 
@@ -562,3 +588,6 @@ ALL disables password required when sudoing
 
 `sudo swapoff -a`
 >Turns swap memory off
+
+`cat /etc/passwd`
+>Displays a list of all users and user info. Combine with grep for specific information.
