@@ -22,6 +22,8 @@
 ## **AWS CLI/CloudShell**
 >If a command does not work, check that you have the appropriate permissions to perform the command and that your AWS CLI is up to date.
 
+[CLI Installation Instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
 `aws iam list-users`
 >Lists all the users that have been created in IAM.
 
